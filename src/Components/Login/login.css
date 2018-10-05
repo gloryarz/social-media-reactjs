@@ -1,0 +1,10 @@
+.pink {
+    background-image: linear-gradient(to right, #ee6e73, #ee6eb4);
+    color: white;
+    padding: 1rem;
+    width: 18rem;
+}
+
+.red {
+    background-color: red;
+}
