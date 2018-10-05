@@ -75,8 +75,9 @@ class PostDom extends Component {
   };
 
   editPost= (postId) => {
-    alert("Solo disponible para usuarios premium")
+    alert("Desarrollando")
   }
+
 
   render() {
     return (

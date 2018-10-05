@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
-import {fbsConfig} from '../../Config/ConfigFB';
-import firebase from 'firebase';
+import React, { Component } from "react";
+import { fbsConfig } from "../../Config/ConfigFB";
+import firebase from "firebase";
 import {
   Row,
   Form,
-  FormGroup,
   Col,
-  ControlLabel,
   FormControl,
   Button,
-  Grid
+  Grid,
+  Image
 } from "react-bootstrap";
 import logo from "../Login/beeMom.svg";
 import "../Login/login.css";
-
 
 class Login extends Component {
   constructor(props) {
@@ -22,98 +20,101 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.signup = this.signup.bind(this);
     this.state = {
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     };
   }
 
-  
   handleChange(el) {
     this.setState({ [el.target.name]: el.target.value });
   }
 
   login(el) {
     el.preventDefault();
-    fbsConfig.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-    }).catch((error) => {
+    fbsConfig
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(u => {})
+      .catch(error => {
         console.log(error);
       });
   }
 
-  signup(el){
+  signup(el) {
     el.preventDefault();
-    fbsConfig.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-    }).then((u)=>{console.log(u)})
-    .catch((error) => {
+    fbsConfig
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(u => {})
+      .then(u => {
+        console.log(u);
+      })
+      .catch(error => {
         console.log(error);
-      }) 
+      });
   }
 
-    handleGoogleLogin() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(provider)
-            .then((resp) => {console.log(resp)})
-            .catch(err => {console.log(err)});
-      }
-  
+  handleGoogleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(resp => {
+        console.log(resp);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   render() {
     return (
       <div className="Login">
         <Grid>
           <Row>
-            <Col xs={8} xsOffset={2}>
-              <img src={logo} alt="" className="App-logo" />
+            <Col xs={8} xsOffset={2} sm={8} smOffset={4} md={8} mdOffset={5}
+            className="logo">
+              <Image src={logo} alt="bee" className="bee" responsive></Image>
               <h1>BeeMom</h1>
             </Col>
           </Row>
+          <Form horizontal>
+                <Col xs={12} md={8} mdOffset={2} lg={6} lgOffset={3}>
+                  <FormControl value={this.state.email} onChange={this.handleChange} 
+                  type="email" name="email" id="exampleInputEmail1" placeholder="Email" 
+                  className="social inputs"/>
+                </Col>
 
-          <Row>
-            <Col xs={10} md={8} lg={6} xsOffset={1} mdOffset={2} lgOffset={3}>
-            <Form horizontal>
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={2}>
+                <Col xs={12} md={8} mdOffset={2} lg={6} lgOffset={3}>
+                  <FormControl value={this.state.password} onChange={this.handleChange} 
+                  type="password" name="password" id="exampleInputPassword1" placeholder="Password"
+                  className="social inputs"/>
                 </Col>
-                <Col sm={10}>
-                  <FormControl value={this.state.email} onChange={this.handleChange} type="email" name="email" id="exampleInputEmail1" placeholder="Email" />
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalPassword">
-                <Col componentClass={ControlLabel} sm={2}>
-                </Col>
-                <Col sm={10}>
-                  <FormControl value={this.state.password} onChange={this.handleChange} type="password" name="password" id="exampleInputPassword1" placeholder="Password"/>
-                </Col>
-              </FormGroup>
-              <FormGroup>
-                <Col smOffset={2} sm={10}>
+  
+                <Col xs={12} md={8} mdOffset={2} lg={6} lgOffset={3}>
                   <Button type="submit" className="pink" onClick={this.login}>
                     Iniciar Sesión
                   </Button>
                 </Col>
-              </FormGroup>
-              <FormGroup>
-                <Col smOffset={2} sm={10}>
+  
+  
+                <Col sm={12} md={8} mdOffset={2} lg={6} lgOffset={3}>
                   <Button type="submit" className="pink" onClick={this.signup} >
                     Registrar
                   </Button>
                 </Col>
-              </FormGroup>
-              <FormGroup>
-                <Col smOffset={2} sm={10}>
-                  <Button type="button" className="pink"
+  
+                <Col xs={12} md={8} mdOffset={2} lg={6} lgOffset={3}>
+                  <Button type="button" className="social"
+                  bsStyle="danger"
                   onClick={ this.handleGoogleLogin}>
-                    Google
+                    Iniciar con Google
                   </Button>
-                </Col>
-              </FormGroup>
+                  </Col>
+
             </Form>
-            </Col>
-          </Row>
         </Grid>
- </div>
- 
+      </div>
     );
   }
 }
