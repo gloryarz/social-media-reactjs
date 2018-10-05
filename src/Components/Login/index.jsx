@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {fbsConfig} from '../../Config/ConfigFB';
 import firebase from 'firebase';
 import {
@@ -53,7 +52,7 @@ class Login extends Component {
     handleGoogleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider();
             firebase.auth().signInWithPopup(provider)
-            .then((resp) => {console.log(resp) })
+            .then((resp) => {console.log(resp)})
             .catch(err => {console.log(err)});
       }
   

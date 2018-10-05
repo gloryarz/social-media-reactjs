@@ -22,6 +22,9 @@ class App extends Component {
       if (user) {
         this.setState({ user });
         localStorage.setItem('user', user.uid);
+        localStorage.setItem('photo', user.photoURL);
+        localStorage.setItem('userName', user.displayName);
+        localStorage.setItem('mail', user.email);
       } else {
         this.setState({ user: null });
         localStorage.removeItem('user');

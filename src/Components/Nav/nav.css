@@ -1,0 +1,9 @@
+.bg{
+    background-image: linear-gradient(to right, #ee6e73, #ee6eb4);
+    color: white;
+}
+
+.exit {
+    font-size: 1.8rem;
+    padding-top: .8rem;
+}

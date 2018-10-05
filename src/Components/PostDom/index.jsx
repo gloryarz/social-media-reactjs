@@ -9,6 +9,7 @@ class PostDom extends Component {
     super(props);
     this.addPost = this.addPost.bind(this);
     this.removePost = this.removePost.bind(this);
+    this.editPost = this.editPost.bind(this);
 
     this.db = fbsConfig
       .database()
@@ -20,13 +21,22 @@ class PostDom extends Component {
     };
   }
 
+
   componentDidMount() {
     const previousPost = this.state.posts;
 
     this.db.on("child_added", snap => {
       previousPost.push({
         id: snap.key,
-        postContent: snap.val().postContent
+        postContent: snap.val().postContent,
+        name: snap.val().name,
+        user: snap.val().userUid,
+        photo: snap.val().photo,
+        mail: snap.val().mail,
+        hour: snap.val().hour,
+        date: snap.val().date
+        
+
       });
       this.setState({
         notes: previousPost
@@ -45,14 +55,28 @@ class PostDom extends Component {
     });
   }
 
+
   addPost = (post) => {
-    this.db.push().set({ postContent: post });
+    this.db.push().set({ 
+      postContent: post, 
+      userUid: localStorage.getItem('user'),
+      photo: localStorage.getItem('photo'),
+      name: localStorage.getItem('userName'),
+      mail: localStorage.getItem('mail'),
+      date: new Date().toDateString(),
+      hour: new Date().toLocaleTimeString()
+    });
+      
   }
 
   removePost = (postId) => {
     console.log("removePost" + postId)
     this.db.child(postId).remove()
   };
+
+  editPost= (postId) => {
+    alert("Solo disponible para usuarios premium")
+  }
 
   render() {
     return (
@@ -68,6 +92,13 @@ class PostDom extends Component {
                 postId={post.id}
                 key={post.id}
                 removePost={this.removePost}
+                editPost={this.editPost}
+                name={post.name}
+                user={post.user}
+                photo={post.photo}
+                mail={post.mail}
+                date={post.date}
+                hour={post.hour}
               />
             );
           })}

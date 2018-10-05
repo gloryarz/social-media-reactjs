@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { fbsConfig } from "../../Config/ConfigFB";
-import { Nav, NavItem } from "react-bootstrap";
+import { Nav, Col, Row } from "react-bootstrap";
+import './nav.css'
 
 class NavBar extends Component {
   constructor(props) {
@@ -14,16 +15,15 @@ class NavBar extends Component {
 
   render() {
     return (
-      <Nav>
-        <NavItem>
-          <p>Home</p>
-        </NavItem>
-        <NavItem>
-          <p>Perfil</p>
-        </NavItem>
-        <NavItem>
-          <p onClick={this.logout}><i class="fas fa-sign-out-alt"></i></p>
-        </NavItem>
+      <Nav className="bg">
+        <Row>
+          <Col xs={8} xsOffset={1}>
+            <h4 className="bee">BeeMom</h4>
+          </Col>
+          <Col xs={2}>
+            <p onClick={this.logout} className="exit"><i className="fas fa-sign-out-alt"></i></p>
+          </Col>
+        </Row>
       </Nav>
     );
   }
